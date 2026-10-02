@@ -22,7 +22,7 @@
 
 ## How it works
 
-Main-session models are expensive, and their context window is the scarcest resource you have. Any step that produces bulky intermediates — search results, logs, long file dumps — permanently pollutes the main context when done inline. Chuigong's answer is an economy of delegation:
+Main-session models are expensive, and their context window is the scarcest resource you have. Information is routed by organizational state, not by volume: decision documents that already hold conclusions — handover docs, project main docs, README/DESIGN, requirement memos, specs, ledgers, review packages — are read by the coordinator directly; they are the input for decomposition and adjudication, not "research". Unorganized raw material (search results, logs, data piles) is dispatched to a worker to be digested into conclusions and returned; a document that is huge but only locally relevant is excerpted by a worker with line-number anchors, and the coordinator reads just the key sections. Chuigong's answer is an economy of delegation:
 
 1. **Roles are preset.** Every worker's full role prompt ships with the plugin. Dispatching costs only a slot-filled briefing — a few dozen tokens.
 2. **Deliverables land on disk.** Workers write their complete output to the file named in the briefing and return only a status plus at most five lines of key findings. The main context never sees the bulk.
@@ -48,11 +48,13 @@ Worker reporting follows a fixed four-state contract: `DONE` / `DONE_WITH_CONCER
 
 | Worker | Role | Tool policy |
 |---|---|---|
-| `wb-researcher` (调研) | Web search, source verification, multi-source comparison | Inherits your full toolset — keeps MCP search servers; file writes constrained by role text |
+| `wb-researcher` (调研) | The coordinator's information secretary: web search, source verification, multi-source comparison; mapping and distilling unorganized local material (undocumented codebases, logs, directory trees, data piles); targeted excerpts of huge documents with line-number anchors | Inherits your full toolset — keeps MCP search servers; file writes constrained by role text |
 | `wb-writer` (文笔) | Drafting, docs, reports, slides, spreadsheets (docx / pptx / xlsx / pdf) | Inherits your full toolset |
 | `wb-coder` (匠人) | Code changes, scripts, fixes, refactors; mandatory self-test; commits only when briefed | `Bash` `Read` `Write` `Edit` `Grep` `Glob` |
 | `wb-data` (力役) | Bulk, mechanical file/data processing with count reconciliation | `Bash` `Read` `Write` `Edit` `Grep` `Glob` |
 | `wb-reviewer` (御史) | Acceptance review: PASS/FAIL verdict plus evidence-backed Critical / Important / Minor findings | Read tools + `Write` only for its own report; built-in red-line scan |
+
+**Direct-read rule.** Decision documents already in conclusion form (handover docs, project main docs, README/DESIGN, requirement memos, specs, ledgers, review packages) are read by the coordinator directly: they are input for decomposition and adjudication, not "research", and having a worker read them through only to re-narrate them is double reading. `wb-researcher`'s lanes are for unorganized material and for targeted excerpts of huge, only-locally-relevant documents.
 
 ## Installation
 
@@ -116,7 +118,7 @@ When the requirement itself is vague, don't execute — interrogate first:
 
 `grill-me` questions you in rounds: at most 4 multiple-choice questions per round (recommended option first, only "frontier" questions whose prerequisites are already settled), stopping once no open decision remains, then writing a requirement memo to `.chuigong/grill-me/<date>-<topic>.md`. The delegation flow resumes only after you confirm the memo. Interrogation never starts without your consent, and it never implements anything.
 
-**Why this saves quota:** dispatching costs tens of tokens; bulky intermediates live in files; the main context only ever sees statuses, findings, and the final deliverable.
+**Why this saves quota:** dispatching costs tens of tokens; unorganized raw material reaches the main context only after a worker has digested it into conclusions on disk; the main context only ever sees statuses, findings, and the final deliverable — plus the decision documents it reads directly.
 
 ## Adapting to your own model
 

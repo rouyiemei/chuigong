@@ -4,6 +4,14 @@ All notable changes to the Chuigong (垂拱) plugin are documented here.
 
 > Internal-release history: versions 0.1.0 through 0.2.3 were all shipped on 2026-10-02 during one polish day. Entries are reconstructed from `DESIGN.md` and per-version release diffs.
 
+## 0.2.4 — 2026-10-03
+
+### Changed
+
+- **Information routing is now keyed to organization state, not size** (production-feedback fix). The old economics rule — "dispatch anything that produces bulky intermediates (search results, logs, file contents)" — pushed already-distilled decision documents (handoff docs, project master docs, requirement memos, specs, ledgers) through `wb-researcher`; the coordinator then read them itself anyway, paying a double read plus summarization loss. Now: documents already in conclusion form are read **directly by the coordinator** — absorbing decision inputs is its job, not "doing research". Only unorganized raw material (web research, undocumented codebases, logs, data piles) is dispatched for digestion into conclusions. Huge-but-only-partially-relevant documents get targeted extraction with line-number anchors, and the coordinator reads the anchored passages itself.
+- `wb-researcher` rescoped as **the coordinator's information secretary** with exactly two primary lanes: ① web search / source verification / multi-source comparison; ② surveying and distilling unorganized local material. Regular-size distilled documents are outside its lanes — the coordinator reads them directly (targeted extraction with anchors remains a briefable service for huge, partially-relevant documents). (User decision: mismatch detection lives on the dispatching side only — the worker does not push back on briefs.)
+- Mandate rule 10 added, with a matching carve-out in the "no personal research" clause; `delegating` skill economics paragraph rewritten and reverse-gate / roster / excuse-checklist synced; `DESIGN.md` §1/§3/§4 updated with a new acceptance criterion (no double reads of distilled docs).
+
 ## 0.2.3 — 2026-10-02
 
 ### Changed

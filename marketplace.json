@@ -5,7 +5,7 @@
     {
       "name": "chuigong",
       "source": "./",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "description": "垂拱而治：主对话只做拆解、派发、裁决、汇总，调研/写作/编码/数据处理/审核全部由预置工蜂子智能体（DeepSeek Flash）执行；含究诘（需求拷问）与 sdd（严肃流程）两个流程技能",
       "displayName": "垂拱",
       "displayName_i18n": {
