@@ -6,6 +6,10 @@ All notable changes to the Chuigong (垂拱) plugin are documented here.
 
 ## 0.3.0 — 2026-10-04
 
+### Added
+
+- **Recommended install path changed to the local-marketplace flow** (same-day doc addition): clone the repository → add the cloned folder as a local plugin marketplace in ZCode → install from it. Rationale: the official plugin development guide states hooks run only for plugins installed from an official marketplace or a local directory, so this path guarantees the SessionStart mandate injection — and it is the path the author runs in production. The GitHub-marketplace direct add and the CLI install remain as alternatives (options B / C), with the hooks warning callout now attached to the alternatives instead of the recommended path.
+
 ### Changed
 
 - **Shipped model switched to the account-scoped `account:bigmodel-individual-coding-plan/GLM-5.3-Flash`** (the same form official plugins use): it shows up in the UI and runs out of the box in GLM-plan environments; other environments pick their own models once from the UI.

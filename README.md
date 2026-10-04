@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README_CN.md)
 
-**Chuigong** (Chinese: 垂拱, from the I Ching — "垂衣裳而天下治", "governing by folded hands") is a plugin for [ZCode](https://zcode.z.ai) that turns your main conversation into the sovereign: the sovereign only **decomposes, dispatches, adjudicates and summarizes**, while research, writing, coding, bulk data work and review are executed by five pre-configured official subagents (the Baiguan 百官, "the assembled officials") on the shipped GLM-5.3-Flash (changeable per official in **Settings → Subagents**) — so your expensive main-model quota goes to the sovereign's judgment, not to the officials' intermediate bulk. Install it in one step: add this repository as a plugin marketplace in ZCode, then install the plugin (see [Installation](#installation)).
+**Chuigong** (Chinese: 垂拱, from the I Ching — "垂衣裳而天下治", "governing by folded hands") is a plugin for [ZCode](https://zcode.z.ai) that turns your main conversation into the sovereign: the sovereign only **decomposes, dispatches, adjudicates and summarizes**, while research, writing, coding, bulk data work and review are executed by five pre-configured official subagents (the Baiguan 百官, "the assembled officials") on the shipped GLM-5.3-Flash (changeable per official in **Settings → Subagents**) — so your expensive main-model quota goes to the sovereign's judgment, not to the officials' intermediate bulk. Install it in three steps: clone this repository, add the cloned folder as a local plugin marketplace in ZCode, then install the plugin (see [Installation](#installation)).
 
 ## Table of Contents
 
@@ -60,7 +60,25 @@ Officials report under a fixed four-state contract: `DONE` / `DONE_WITH_CONCERNS
 
 > **Model note:** the shipped model is GLM-5.3-Flash; to change it, pick another from the dropdown under **Settings → Subagents** — it takes effect immediately.
 
-### A. Marketplace UI (recommended)
+### A. Local marketplace source (recommended)
+
+```bash
+git clone https://github.com/rouyiemei/chuigong.git
+```
+
+1. Clone the repository to any local folder with the command above.
+2. Go to **Settings → Plugins**, click **Create → Add plugin marketplace**, and select the cloned folder.
+3. In the **Personal** section, find the Chuigong (垂拱) card → **Install**.
+4. Verify: open a **new session** — the sovereign should open by proposing delegation instead of doing the work itself; type `/` and confirm `/wb` and `/grill-me` appear.
+
+**Updating:** `git pull` inside the cloned directory, then click **Refresh marketplace** in the marketplace-sources panel.
+
+Two reasons this path is recommended:
+
+1. **Full hook functionality.** ZCode's plugin development guide states that hooks run only when a plugin is installed from an official marketplace or a local directory. A local-directory install therefore guarantees the SessionStart sovereign-mandate injection — the core mechanism Chuigong depends on.
+2. **Production-proven.** This is the install path the author runs in production.
+
+### B. GitHub marketplace direct add (alternative)
 
 1. Open any workspace in ZCode.
 2. Go to **Settings → Plugins**, click **Create → Add plugin marketplace**.
@@ -68,7 +86,7 @@ Officials report under a fixed four-state contract: `DONE` / `DONE_WITH_CONCERNS
 4. In the **Personal** section, find the Chuigong (垂拱) card → **Install**.
 5. Verify: open a **new session** — the sovereign should open by proposing delegation instead of doing the work itself; type `/` and confirm `/wb` and `/grill-me` appear.
 
-### B. CLI
+### C. CLI (alternative)
 
 ```bash
 zcode plugins marketplace add rouyiemei/chuigong
@@ -77,16 +95,8 @@ zcode plugins install chuigong@chuigong   # <plugin-name>@<marketplace-name>
 
 Behind a proxy, set `ZCODE_HTTP_PROXY` for the ZCode process first — it is the only proxy variable ZCode honors (see [FAQ](#faq)).
 
-### C. Local directory (development / full functionality)
-
-```bash
-git clone https://github.com/rouyiemei/chuigong.git
-```
-
-**Settings → Plugins → Create → Add plugin marketplace** → select the cloned folder → **Install**. After editing anything, use **Refresh marketplace** in the marketplace-sources panel to apply changes.
-
-> **Hooks and install source — read this if you rely on the sovereign mandate.**
-> ZCode's plugin development guide states that hooks run only when a plugin is installed from an official marketplace or a local directory. If you install via this third-party GitHub marketplace, the SessionStart mandate injection may not run (two official documents describe this differently; the actual behavior is not fully settled). Chuigong's core mechanism depends on that injection, so after installing, open a new session and confirm the sovereign actually hands work off. If the mandate is missing, install from a local clone (option C) — that is the guaranteed full-function path.
+> **Hooks and install source — read this if you rely on the sovereign mandate (applies to options B and C).**
+> ZCode's plugin development guide states that hooks run only when a plugin is installed from an official marketplace or a local directory. Options B and C both install through this third-party GitHub marketplace, so the SessionStart mandate injection may not run (two official documents describe this differently; the actual behavior is not fully settled). Chuigong's core mechanism depends on that injection, so after installing, open a new session and confirm the sovereign actually hands work off. If the mandate is missing, switch to option A (local clone) — that is the guaranteed full-function path.
 
 ## Usage
 
@@ -211,7 +221,7 @@ The plugin ships no code that performs network requests. Any network activity ha
 Check that the marketplace was validated and listed with a plugin count in the marketplace-sources panel; that the repository root contains `marketplace.json`; and that cloning succeeded (proxy? see next item).
 
 **No sovereign mandate in new sessions.**
-Confirm the plugin is enabled; confirm the hook appears as a read-only entry under Settings → Hooks; and check the install source — if installed via a third-party GitHub marketplace, hooks may not run (see [Known limitations](#known-limitations)). Reinstalling from a local clone restores full functionality.
+Confirm the plugin is enabled; confirm the hook appears as a read-only entry under Settings → Hooks; and check the install source — if installed via a third-party GitHub marketplace, hooks may not run (see [Known limitations](#known-limitations)). Reinstalling via option A (local marketplace source) restores full functionality.
 
 **Cloning fails behind a proxy.**
 Set `ZCODE_HTTP_PROXY=http://host:port` for the ZCode process before adding the marketplace. ZCode honors only this variable; a bare `http_proxy` is ignored.
