@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # SessionStart hook for the chuigong plugin.
-# Injects hooks/mandate.md (the single source of the coordinator mandate)
+# Injects hooks/mandate.md (the single source of the sovereign mandate)
 # as additional context on startup|clear|compact.
 
 set -euo pipefail

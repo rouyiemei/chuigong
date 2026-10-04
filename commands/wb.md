@@ -1,5 +1,5 @@
 ---
-description: 一键进入垂拱委派流程，对给定任务执行「分类→拆解→派发工蜂→审核→汇总」
+description: 一键进入垂拱委派流程，对给定任务执行「分类→拆解→差遣百官→审核→汇总」
 argument-hint: <任务描述>
 skills: delegating
 ---
